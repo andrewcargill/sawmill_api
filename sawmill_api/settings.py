@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-_wy3)pcus^$11i17*k5$+6wt*wrys8&^dzt6lhyvt$t%$2qe9o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['sawmill-live-api-ecf54c3f35e6.herokuapp.com']
+
 
 
 # Application definition
