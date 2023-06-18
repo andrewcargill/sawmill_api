@@ -92,6 +92,7 @@ WSGI_APPLICATION = 'sawmill_api.wsgi.application'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Replace with your React app's domain
+    'https://andrewcargill.github.io/sawmill_frontend/'
 ]
 
 
