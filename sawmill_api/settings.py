@@ -97,9 +97,20 @@ WSGI_APPLICATION = 'sawmill_api.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ddsmn1ltpruvq3',
+        'USER': 'epilubgvgbdafn',
+        'PASSWORD': 'cc9b3645159e42b496b7f019649c2c4b6317333ce9017c53f944c5c4d988902b',
+        'HOST': 'ec2-52-205-45-222.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
