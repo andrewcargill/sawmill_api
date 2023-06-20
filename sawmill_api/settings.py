@@ -39,7 +39,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 #  SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['sawmill-live-api-ecf54c3f35e6.herokuapp.com']
+ALLOWED_HOSTS = ['sawmill-live-api-ecf54c3f35e6.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 
@@ -93,7 +93,6 @@ WSGI_APPLICATION = 'sawmill_api.wsgi.application'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://andrewcargill.github.io',
-    'https://andrewcargill.github.io'
 ]
 
 
