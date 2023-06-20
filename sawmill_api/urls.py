@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from lumber.views import TestList
+from landing.views import landing_page
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/lumber/', TestList.as_view(), name='lumber-api'),
+    path('', landing_page, name='landing_page'),
 ]
