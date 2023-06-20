@@ -108,6 +108,17 @@ CORS_ALLOWED_ORIGINS = [
     'https://andrewcargill.github.io',
 ]
 
+CORS_ALLOWED_URLS = [
+    'http://localhost:3000/api-auth/logout/',
+    'https://andrewcargill.github.io/api-auth/logout/',
+]
+
+CSRF_EXEMPT_PATHS = [
+    '/api-auth/logout/',
+]
+
+
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

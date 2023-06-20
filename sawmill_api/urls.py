@@ -28,7 +28,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
      path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
      path('api/token/', ObtainAuthToken.as_view(), name='api-token'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('api-auth/logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('', landing_page, name='landing_page'),
 ]
 
