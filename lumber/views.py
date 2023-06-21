@@ -33,8 +33,8 @@ class TreeList(generics.ListCreateAPIView):
         return queryset
 
 class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Test.objects.all()
-    serializer_class = TestSerializer
+    queryset = Tree.objects.all()
+    serializer_class = TreeSerializer
 
 class LogList(generics.ListCreateAPIView):
     queryset = Log.objects.all()
