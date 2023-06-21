@@ -6,6 +6,10 @@ class TestList(generics.ListCreateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
 
+class TestDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
+
 class TreeList(generics.ListCreateAPIView):
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
