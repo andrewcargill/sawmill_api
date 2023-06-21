@@ -109,6 +109,14 @@ class PlanksByLogList(generics.ListAPIView):
         log_id = self.request.query_params.get('log_id')
         queryset = Plank.objects.filter(log=log_id) 
         return queryset
+    
+class MoistureChecksByPlankList(generics.ListAPIView):
+    serializer_class = MoistureCheckSerializer  
+
+    def get_queryset(self):
+        plank_id = self.request.query_params.get('plank_id')
+        queryset = MoistureCheck.objects.filter(plank=plank_id) 
+        return queryset
 
 
 

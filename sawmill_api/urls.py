@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from lumber.views import TestList, TestDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList
+from lumber.views import TestList, TestDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList
 from landing.views import landing_page
 from django.contrib.auth import views as auth_views
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -36,6 +36,7 @@ urlpatterns = [
     path('api/water/<int:pk>/', MoistureDetail.as_view(), name='water-detail-api'),
     path('api/logs/by_tree/', LogsByTreeList.as_view(), name='logs-by-tree'),
     path('api/planks/by_log/', PlanksByLogList.as_view(), name='planks-by-log'),
+    path('api/water/by_plank/', MoistureChecksByPlankList.as_view(), name='water-by-plank'),
     path('api-auth/', include('rest_framework.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('api/token/', ObtainAuthToken.as_view(), name='api-token'),
