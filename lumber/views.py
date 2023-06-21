@@ -40,7 +40,7 @@ class LogList(generics.ListCreateAPIView):
     queryset = Log.objects.all()
     serializer_class = LogSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['date', 'length','tree', 'id']
+    search_fields = ['date', 'length', 'id']
 
     def get_queryset(self):
         queryset = super().get_queryset()
