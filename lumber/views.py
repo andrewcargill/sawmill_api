@@ -6,7 +6,7 @@ class TestList(generics.ListCreateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['data1', 'data3']
+    search_fields = ['data1', 'data2','data3', 'id']
 
 class TestDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Test.objects.all()
