@@ -56,6 +56,19 @@ class LogDetail(generics.RetrieveUpdateDestroyAPIView):
 class PlankList(generics.ListCreateAPIView):
     queryset = Plank.objects.all()
     serializer_class = PlankSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['width', 'depth', 'wood_grade', 'id']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_query = self.request.query_params.get('id')
+        if id_query:
+            queryset = queryset.filter(id=id_query)
+        return queryset
+
+class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Plank.objects.all()
+    serializer_class = PlankSerializer
 
 class MoistureCheckList(generics.ListCreateAPIView):
     queryset = MoistureCheck.objects.all()
