@@ -39,6 +39,19 @@ class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
 class LogList(generics.ListCreateAPIView):
     queryset = Log.objects.all()
     serializer_class = LogSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['date', 'length','tree', 'id']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_query = self.request.query_params.get('id')
+        if id_query:
+            queryset = queryset.filter(id=id_query)
+        return queryset
+    
+class LogDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Log.objects.all()
+    serializer_class = LogSerializer
 
 class PlankList(generics.ListCreateAPIView):
     queryset = Plank.objects.all()
