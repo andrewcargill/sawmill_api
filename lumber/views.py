@@ -2,6 +2,8 @@ from rest_framework import generics, filters
 from .models import Test, Tree, Log, Plank, MoistureCheck
 from .serializers import TestSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer
 
+"""Test"""
+
 class TestList(generics.ListCreateAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
@@ -19,6 +21,7 @@ class TestDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
 
+"""Tree Views"""
 class TreeList(generics.ListCreateAPIView):
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
@@ -36,6 +39,7 @@ class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
 
+"""Log Views"""
 class LogList(generics.ListCreateAPIView):
     queryset = Log.objects.all()
     serializer_class = LogSerializer
@@ -53,6 +57,7 @@ class LogDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Log.objects.all()
     serializer_class = LogSerializer
 
+"""Plank Views"""
 class PlankList(generics.ListCreateAPIView):
     queryset = Plank.objects.all()
     serializer_class = PlankSerializer
@@ -70,6 +75,7 @@ class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Plank.objects.all()
     serializer_class = PlankSerializer
 
+"""Moisture Views"""
 class MoistureCheckList(generics.ListCreateAPIView):
     queryset = MoistureCheck.objects.all()
     serializer_class = MoistureCheckSerializer
@@ -86,6 +92,15 @@ class MoistureCheckList(generics.ListCreateAPIView):
 class MoistureDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = MoistureCheck.objects.all()
     serializer_class = MoistureCheckSerializer
+
+"""Additional Views"""
+class LogsByTreeList(generics.ListAPIView):
+    serializer_class = LogSerializer  # Replace with your Log serializer
+
+    def get_queryset(self):
+        tree_id = self.request.query_params.get('tree_id')
+        queryset = Log.objects.filter(tree=tree_id)  # Replace 'tree' with the actual foreign key relation to the parent tree in your Log model
+        return queryset
 
 
 
