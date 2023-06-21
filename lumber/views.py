@@ -22,6 +22,19 @@ class TestDetail(generics.RetrieveUpdateDestroyAPIView):
 class TreeList(generics.ListCreateAPIView):
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['date', 'species','reason_for_felling', 'id']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_query = self.request.query_params.get('id')
+        if id_query:
+            queryset = queryset.filter(id=id_query)
+        return queryset
+
+class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
 
 class LogList(generics.ListCreateAPIView):
     queryset = Log.objects.all()
