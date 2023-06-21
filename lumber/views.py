@@ -73,6 +73,19 @@ class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
 class MoistureCheckList(generics.ListCreateAPIView):
     queryset = MoistureCheck.objects.all()
     serializer_class = MoistureCheckSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['date', 'water_percentage', 'id']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        id_query = self.request.query_params.get('id')
+        if id_query:
+            queryset = queryset.filter(id=id_query)
+        return queryset
+
+class MoistureDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MoistureCheck.objects.all()
+    serializer_class = MoistureCheckSerializer
 
 
 
