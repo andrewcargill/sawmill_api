@@ -102,5 +102,13 @@ class LogsByTreeList(generics.ListAPIView):
         queryset = Log.objects.filter(tree=tree_id)  # Replace 'tree' with the actual foreign key relation to the parent tree in your Log model
         return queryset
 
+class PlanksByLogList(generics.ListAPIView):
+    serializer_class = PlankSerializer  
+
+    def get_queryset(self):
+        log_id = self.request.query_params.get('log_id')
+        queryset = Plank.objects.filter(log=log_id) 
+        return queryset
+
 
 
