@@ -41,6 +41,7 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['sawmill-live-api-ecf54c3f35e6.herokuapp.com', '127.0.0.1', 'localhost']
 
+print(f"DEBUG: {DEBUG}")
 
 
 # Application definition
