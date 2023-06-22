@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils import timezone
+from dropbox import Dropbox
+from django.conf import settings
+from dropbox.files import WriteMode
 
 
 class Test(models.Model):
@@ -9,6 +12,28 @@ class Test(models.Model):
     data2 = models.IntegerField()
     data3 = models.CharField(max_length=100)
     id = models.AutoField(primary_key=True)
+
+from django.db import models
+from dropbox import Dropbox
+from django.conf import settings
+
+class DropboxTest(models.Model):
+    file = models.FileField(upload_to='dropbox_files/')
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Upload the file to Dropbox
+        dropbox = Dropbox(settings.DROPBOX_ACCESS_TOKEN)
+        with open(self.file.path, 'rb') as f:
+            dropbox.files_upload(f.read(), f"/{self.file.name}", mode=WriteMode('overwrite'))
+
+    def delete(self, *args, **kwargs):
+        # Delete the file from Dropbox
+        dropbox = Dropbox(settings.DROPBOX_ACCESS_TOKEN)
+        dropbox.files_delete_v2(f"/{self.file.name}")
+
+        super().delete(*args, **kwargs)
 
 
 class Tree(models.Model):

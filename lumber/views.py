@@ -1,6 +1,7 @@
 from rest_framework import generics, filters
-from .models import Test, Tree, Log, Plank, MoistureCheck
-from .serializers import TestSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer
+from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck
+from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer
+
 
 """Test"""
 
@@ -20,6 +21,16 @@ class TestList(generics.ListCreateAPIView):
 class TestDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Test.objects.all()
     serializer_class = TestSerializer
+
+"""Dropbox Test"""
+class DropboxFileList(generics.ListCreateAPIView):
+    queryset = DropboxTest.objects.all()
+    serializer_class = DropBoxFileSerializer
+
+class DropboxFileDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DropboxTest.objects.all()
+    serializer_class = DropBoxFileSerializer
+
 
 """Tree Views"""
 class TreeList(generics.ListCreateAPIView):

@@ -1,9 +1,14 @@
 from rest_framework import serializers
-from .models import Test, Tree, Log, Plank, MoistureCheck
+from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
+        fields = '__all__'
+
+class DropBoxFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DropboxTest
         fields = '__all__'
 
 class TreeSerializer(serializers.ModelSerializer):

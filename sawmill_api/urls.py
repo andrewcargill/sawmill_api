@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from lumber.views import TestList, TestDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList
+from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList
 from landing.views import landing_page
 from django.contrib.auth import views as auth_views
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/lumber/', TestList.as_view(), name='lumber-api'),
     path('api/lumber/<int:pk>/', TestDetail.as_view(), name='lumber-detail-api'),
+    path('api/dropbox/', DropboxFileList.as_view(), name='dropbox-api'),
+    path('api/dropbox/<int:pk>/', DropboxFileDetail.as_view(), name='dropbox-detail-api'),
     path('api/tree/', TreeList.as_view(), name='tree'),
     path('api/tree/<int:pk>/', TreeDetail.as_view(), name='tree-detail-api'),
     path('api/log/', LogList.as_view(), name='log'),
