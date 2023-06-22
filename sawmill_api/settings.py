@@ -117,7 +117,9 @@ CSRF_EXEMPT_PATHS = [
     '/api-auth/logout/',
 ]
 
-GDAL_LIBRARY_PATH = '/path/to/gdal/library.so'
+DROPBOX_OAUTH2_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_woivGAt6uOyJv3hxaFsr474SnRpoxVWdjd6gtzKVoeEmA4ugoivHsNl6o01kVvZhh0Z0OEr2R1rIEx0xNt1g'
+
+
 
 
 # Database
