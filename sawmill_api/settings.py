@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'dropbox',
 
 ]
 
@@ -118,6 +119,8 @@ CSRF_EXEMPT_PATHS = [
 ]
 
 DROPBOX_OAUTH2_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_woivGAt6uOyJv3hxaFsr474SnRpoxVWdjd6gtzKVoeEmA4ugoivHsNl6o01kVvZhh0Z0OEr2R1rIEx0xNt1g'
+
+DROPBOX_ACCESS_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_woivGAt6uOyJv3hxaFsr474SnRpoxVWdjd6gtzKVoeEmA4ugoivHsNl6o01kVvZhh0Z0OEr2R1rIEx0xNt1g'
 
 
 
