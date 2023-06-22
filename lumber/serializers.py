@@ -4,7 +4,7 @@ from .models import Test, Tree, Log, Plank, MoistureCheck
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
-        fields = ['id', 'data1', 'data2', 'data3']
+        fields = '__all__'
 
 class TreeSerializer(serializers.ModelSerializer):
     class Meta:
