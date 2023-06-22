@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from dropbox import Dropbox
 from django.conf import settings
-from dropbox.files import WriteMode
+from dropbox.files import WriteMode, DeleteError
 
 
 class Test(models.Model):
