@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Test(models.Model):
     data1 = models.CharField(max_length=100)
@@ -18,6 +19,7 @@ class Log(models.Model):
     length = models.DecimalField(max_digits=5, decimal_places=2)
 
 class Plank(models.Model):
+    date = models.DateField(blank=True, default=timezone.now)
     log = models.ForeignKey(Log, on_delete=models.CASCADE)
     width = models.DecimalField(max_digits=5, decimal_places=2)
     depth = models.DecimalField(max_digits=5, decimal_places=2)
