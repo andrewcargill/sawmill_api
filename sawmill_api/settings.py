@@ -117,7 +117,7 @@ CSRF_EXEMPT_PATHS = [
     '/api-auth/logout/',
 ]
 
-
+GDAL_LIBRARY_PATH = '/path/to/gdal/library.so'
 
 
 # Database

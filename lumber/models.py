@@ -1,7 +1,10 @@
 from django.db import models
 from django.utils import timezone
 
+
 class Test(models.Model):
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
     data1 = models.CharField(max_length=100)
     data2 = models.IntegerField()
     data3 = models.CharField(max_length=100)
