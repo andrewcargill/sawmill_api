@@ -3,7 +3,9 @@ from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck
 from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer
 from  rest_framework.views import APIView
 from rest_framework import filters
+from rest_framework import status
 from django.http import Http404
+from rest_framework.response import Response
 
 """Test"""
 
@@ -11,29 +13,22 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import filters
 
-class TestList(APIView):
+class TestList(generics.ListCreateAPIView):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['data1', 'data2', 'data3', 'id']
+    search_fields = ['data1', 'data2','data3', 'id']
 
-    def get(self, request):
-        queryset = Test.objects.all()
+    def get_queryset(self):
+        queryset = super().get_queryset()
         id_query = self.request.query_params.get('id')
         if id_query:
             queryset = queryset.filter(id=id_query)
-        serializer = TestSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return queryset
 
-class TestDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return Test.objects.get(pk=pk)
-        except Test.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        test = self.get_object(pk)
-        serializer = TestSerializer(test)
-        return Response(serializer.data)
+class TestDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
 
 """Dropbox Test"""
 class DropboxFileList(generics.ListCreateAPIView):
