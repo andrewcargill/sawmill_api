@@ -5,6 +5,7 @@ from django.conf import settings
 from dropbox.files import WriteMode, DeleteError
 
 
+
 class Test(models.Model):
     longitude = models.DecimalField(max_digits=16, decimal_places=14, blank=True, null=True)
     latitude = models.DecimalField(max_digits=16, decimal_places=14, blank=True, null=True)
