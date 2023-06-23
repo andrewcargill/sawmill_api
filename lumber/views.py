@@ -3,7 +3,7 @@ from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck
 from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer
 from  rest_framework.views import APIView
 from rest_framework import filters
-from rest_framework import status
+from django.http import Http404
 
 """Test"""
 
