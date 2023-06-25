@@ -14,6 +14,7 @@ from pathlib import Path
 import dj_database_url
 import os 
 from dotenv import load_dotenv
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,17 +58,18 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'dropbox',
 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -98,26 +100,39 @@ REST_FRAMEWORK = {
     ],
 }
 
+# SIMPLE_JWT = {
+#     'AUTH_HEADER_TYPES': ('Bearer',),
+# }
+
 SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('Bearer',),
+     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+     'ROTATE_REFRESH_TOKENS': True,
+     'BLACKLIST_AFTER_ROTATION': True
 }
+
+
 
 
 WSGI_APPLICATION = 'sawmill_api.wsgi.application'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'https://andrewcargill.github.io',
-]
+# New
+CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ALLOWED_URLS = [
-    'http://localhost:3000/api-auth/logout/',
-    'https://andrewcargill.github.io/api-auth/logout/',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+#     'https://andrewcargill.github.io',
+# ]
 
-CSRF_EXEMPT_PATHS = [
-    '/api-auth/logout/',
-]
+# REMOVED
+# CORS_ALLOWED_URLS = [
+#     'http://localhost:3000/api-auth/logout/',
+#     'https://andrewcargill.github.io/api-auth/logout/',
+# ]
+
+# CSRF_EXEMPT_PATHS = [
+#     '/api-auth/logout/',
+# ]
 
 DROPBOX_OAUTH2_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_woivGAt6uOyJv3hxaFsr474SnRpoxVWdjd6gtzKVoeEmA4ugoivHsNl6o01kVvZhh0Z0OEr2R1rIEx0xNt1g'
 

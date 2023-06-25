@@ -16,13 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList
+from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList, HomeView, LogoutView
 from landing.views import landing_page
 from django.contrib.auth import views as auth_views
 from rest_framework.authtoken.views import ObtainAuthToken
-
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
+    path('token/', 
+          jwt_views.TokenObtainPairView.as_view(), 
+          name ='token_obtain_pair'),
+    path('token/refresh/', 
+          jwt_views.TokenRefreshView.as_view(), 
+          name ='token_refresh'),
+    path('home/', HomeView.as_view(), name ='home'),
+    path('logout/', LogoutView.as_view(), name ='logout'),
     path('admin/', admin.site.urls),
     path('api/lumber/', TestList.as_view(), name='lumber-api'),
     path('api/lumber/<int:pk>/', TestDetail.as_view(), name='lumber-detail-api'),
@@ -42,7 +51,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('api/token/', ObtainAuthToken.as_view(), name='api-token'),
-    path('api-auth/logout/', auth_views.LogoutView.as_view(), name='logout'),
+   
+    # path('api-auth/logout/', csrf_exempt(auth_views.LogoutView.as_view()), name='logout'),
     path('', landing_page, name='landing_page'),
 
 ]
