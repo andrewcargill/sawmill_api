@@ -69,6 +69,7 @@ class DropboxFileDetail(generics.RetrieveUpdateDestroyAPIView):
 """Dropbox Upload"""
 
 class ImageUploadView(APIView):
+    permission_classes = (IsAuthenticated,)
     parser_classes = [FileUploadParser]
 
     def post(self, request, format=None):
