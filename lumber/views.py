@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import FileUploadParser
+from django.http import JsonResponse
 
 """Test"""
 
@@ -87,7 +88,7 @@ class TreeList(generics.ListCreateAPIView):
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['date', 'species','reason_for_felling', 'id']
+    search_fields = ['date', 'species', 'reason_for_felling', 'id']
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -95,6 +96,15 @@ class TreeList(generics.ListCreateAPIView):
         if id_query:
             queryset = queryset.filter(id=id_query)
         return queryset
+    
+def validate_tree_id(request, tree_id):
+    try:
+        tree = Tree.objects.get(id=tree_id)
+        return JsonResponse({'exists': True})
+    except Tree.DoesNotExist:
+        return JsonResponse({'exists': False})
+    
+    
 
 class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
