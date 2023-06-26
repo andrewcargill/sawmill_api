@@ -123,6 +123,7 @@ class LogDetail(generics.RetrieveUpdateDestroyAPIView):
 
 """Plank Views"""
 class PlankList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Plank.objects.all()
     serializer_class = PlankSerializer
     filter_backends = [filters.SearchFilter]
@@ -136,11 +137,13 @@ class PlankList(generics.ListCreateAPIView):
         return queryset
 
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Plank.objects.all()
     serializer_class = PlankSerializer
 
 """Moisture Views"""
 class MoistureCheckList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = MoistureCheck.objects.all()
     serializer_class = MoistureCheckSerializer
     filter_backends = [filters.SearchFilter]
@@ -154,11 +157,13 @@ class MoistureCheckList(generics.ListCreateAPIView):
         return queryset
 
 class MoistureDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = MoistureCheck.objects.all()
     serializer_class = MoistureCheckSerializer
 
 """Additional Views"""
 class LogsByTreeList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = LogSerializer  # Replace with your Log serializer
 
     def get_queryset(self):
@@ -167,6 +172,7 @@ class LogsByTreeList(generics.ListAPIView):
         return queryset
 
 class PlanksByLogList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = PlankSerializer  
 
     def get_queryset(self):
@@ -175,6 +181,7 @@ class PlanksByLogList(generics.ListAPIView):
         return queryset
     
 class MoistureChecksByPlankList(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = MoistureCheckSerializer  
 
     def get_queryset(self):
