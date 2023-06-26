@@ -117,12 +117,12 @@ SIMPLE_JWT = {
 WSGI_APPLICATION = 'sawmill_api.wsgi.application'
 
 # New
-CORS_ORIGIN_ALLOW_ALL = True
 
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:3000',
-#     'https://andrewcargill.github.io',
-# ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'https://andrewcargill.github.io',
+]
 
 # REMOVED
 # CORS_ALLOWED_URLS = [
@@ -139,6 +139,9 @@ DROPBOX_OAUTH2_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_wo
 DROPBOX_ACCESS_TOKEN = 'sl.Bg3JCY0qfxqlQQvY78N_tBCT70ScURjBAbPFDrAoeiDtaVk9NELpKpnuFVqi14LGXyxKkDb9VSXjst9Zg4whRe9B2D16-M5hvlBV4lQqbmNnTB9wK5mp1NgWKuCDLFlzfQmXyiA'
 
 
+# CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
 
 
 # Database
