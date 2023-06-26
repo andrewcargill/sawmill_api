@@ -36,6 +36,7 @@ class LogoutView(APIView):
 
 
 class TestList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Test.objects.all()
     serializer_class = TestSerializer
     filter_backends = [filters.SearchFilter]
@@ -49,6 +50,7 @@ class TestList(generics.ListCreateAPIView):
         return queryset
 
 class TestDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Test.objects.all()
     serializer_class = TestSerializer
 
