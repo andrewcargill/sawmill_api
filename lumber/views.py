@@ -97,11 +97,13 @@ class TreeList(generics.ListCreateAPIView):
         return queryset
 
 class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
 
 """Log Views"""
 class LogList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Log.objects.all()
     serializer_class = LogSerializer
     filter_backends = [filters.SearchFilter]
@@ -115,6 +117,7 @@ class LogList(generics.ListCreateAPIView):
         return queryset
     
 class LogDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Log.objects.all()
     serializer_class = LogSerializer
 
