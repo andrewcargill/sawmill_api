@@ -11,6 +11,7 @@ from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.parsers import FileUploadParser
 
 """Test"""
 
@@ -65,6 +66,19 @@ class DropboxFileDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = DropboxTest.objects.all()
     serializer_class = DropBoxFileSerializer
 
+"""Dropbox Upload"""
+
+class ImageUploadView(APIView):
+    parser_classes = [FileUploadParser]
+
+    def post(self, request, format=None):
+        serializer = DropBoxFileSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+
+        return Response(serializer.errors, status=400)
 
 """Tree Views"""
 class TreeList(generics.ListCreateAPIView):
