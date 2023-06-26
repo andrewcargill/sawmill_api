@@ -83,6 +83,7 @@ class ImageUploadView(APIView):
 
 """Tree Views"""
 class TreeList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
     filter_backends = [filters.SearchFilter]
