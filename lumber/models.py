@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 # from dropbox.files import WriteMode, DeleteError
 from storages.backends.dropbox import DropBoxStorage
+from dropbox.exceptions import ApiError
 
 
 
@@ -17,15 +18,25 @@ class Test(models.Model):
     id = models.AutoField(primary_key=True)
 
 class DropboxTest(models.Model):
-    file = models.FileField(storage=DropBoxStorage())
+    file = models.FileField()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        # File upload to Dropbox is handled by the storage backend
+        try:
+            # Upload the file to Dropbox using the DropBoxStorage backend
+            storage = DropBoxStorage()
+            file_path = f"/{self.file.name}"
+            storage.save(file_path, self.file)
+        except ApiError as e:
+            # Handle any Dropbox API errors
+            print(f"Error uploading file to Dropbox: {e}")
 
     def delete(self, *args, **kwargs):
-        # File deletion from Dropbox is handled by the storage backend
+        # Delete the file from Dropbox using the DropBoxStorage backend
+        storage = DropBoxStorage()
+        file_path = f"/{self.file.name}"
+        storage.delete(file_path)
 
         super().delete(*args, **kwargs)
 
