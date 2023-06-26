@@ -56,10 +56,12 @@ class TestDetail(generics.RetrieveUpdateDestroyAPIView):
 
 """Dropbox Test"""
 class DropboxFileList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = DropboxTest.objects.all()
     serializer_class = DropBoxFileSerializer
 
 class DropboxFileDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = DropboxTest.objects.all()
     serializer_class = DropBoxFileSerializer
 
