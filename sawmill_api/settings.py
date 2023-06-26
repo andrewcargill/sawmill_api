@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'storages',
     # 'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'dropbox',
@@ -134,9 +135,13 @@ CORS_ALLOWED_ORIGINS = [
 #     '/api-auth/logout/',
 # ]
 
-DROPBOX_OAUTH2_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_woivGAt6uOyJv3hxaFsr474SnRpoxVWdjd6gtzKVoeEmA4ugoivHsNl6o01kVvZhh0Z0OEr2R1rIEx0xNt1g'
+DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+DROPBOX_OAUTH2_TOKEN = 'sl.BhD7wkIQaGIjX-xlu7dAgWN6pNOqLEkarXDQ_mTTtGmNFT8E-So5QYylZTcGxI5RZ3EYcgcy28pt1gP7MFStBSJ8Gooi0Pf_XMXIE-yUpxdCjzApmI7cHm3tF3-n1u8mPNFhM7g'
 
-DROPBOX_ACCESS_TOKEN = 'sl.Bg3JCY0qfxqlQQvY78N_tBCT70ScURjBAbPFDrAoeiDtaVk9NELpKpnuFVqi14LGXyxKkDb9VSXjst9Zg4whRe9B2D16-M5hvlBV4lQqbmNnTB9wK5mp1NgWKuCDLFlzfQmXyiA'
+
+# DROPBOX_OAUTH2_TOKEN = 'sl.Bg2-m3yJ-8Rl-nP4Uq44rchQ_AJ3AsbVp09cd9UJI5GtmR905M_woivGAt6uOyJv3hxaFsr474SnRpoxVWdjd6gtzKVoeEmA4ugoivHsNl6o01kVvZhh0Z0OEr2R1rIEx0xNt1g'
+
+# DROPBOX_ACCESS_TOKEN = 'sl.BhD7wkIQaGIjX-xlu7dAgWN6pNOqLEkarXDQ_mTTtGmNFT8E-So5QYylZTcGxI5RZ3EYcgcy28pt1gP7MFStBSJ8Gooi0Pf_XMXIE-yUpxdCjzApmI7cHm3tF3-n1u8mPNFhM7g'
 
 
 # CORS_ORIGIN_ALLOW_ALL = True

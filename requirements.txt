@@ -6,6 +6,7 @@ Django==4.2.2
 django-cors-headers==4.1.0
 django-dropbox==0.0.2
 django-dropbox-storage==0.4.1
+django-storages==1.13.2
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.2.2
 dropbox==11.36.2
