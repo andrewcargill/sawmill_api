@@ -96,12 +96,27 @@ class TreeList(generics.ListCreateAPIView):
         if id_query:
             queryset = queryset.filter(id=id_query)
         return queryset
-    
+
+"""ID Validation"""
 def validate_tree_id(request, tree_id):
     try:
         tree = Tree.objects.get(id=tree_id)
         return JsonResponse({'exists': True})
     except Tree.DoesNotExist:
+        return JsonResponse({'exists': False})
+    
+def validate_log_id(request, log_id):
+    try:
+        log = Log.objects.get(id=log_id)
+        return JsonResponse({'exists': True})
+    except Log.DoesNotExist:
+        return JsonResponse({'exists': False})
+    
+def validate_plank_id(request, plank_id):
+    try:
+        log = Plank.objects.get(id=plank_id)
+        return JsonResponse({'exists': True})
+    except Plank.DoesNotExist:
         return JsonResponse({'exists': False})
     
     
