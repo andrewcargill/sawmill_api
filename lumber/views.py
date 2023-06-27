@@ -21,7 +21,7 @@ class HomeView(APIView):
    permission_classes = (IsAuthenticated, )
 
    def get(self, request):
-        content = {'message': '(V3) Welcome to the JWT Authentication page using React Js and Django!'}
+        content = {'message': '(V4) Welcome to the JWT Authentication page using React Js and Django!'}
         return Response(content)
    
 class LogoutView(APIView):
@@ -103,6 +103,8 @@ def validate_tree_id(request, tree_id):
     except Tree.DoesNotExist:
         return JsonResponse({'exists': False})
     
+validate_tree_id.permission_classes = [IsAuthenticated]
+    
 def validate_log_id(request, log_id):
     try:
         log = Log.objects.get(id=log_id)
@@ -110,12 +112,16 @@ def validate_log_id(request, log_id):
     except Log.DoesNotExist:
         return JsonResponse({'exists': False})
     
+validate_tree_id.permission_classes = [IsAuthenticated]
+    
 def validate_plank_id(request, plank_id):
     try:
         log = Plank.objects.get(id=plank_id)
         return JsonResponse({'exists': True})
     except Plank.DoesNotExist:
         return JsonResponse({'exists': False})
+    
+validate_tree_id.permission_classes = [IsAuthenticated]
     
     
 
