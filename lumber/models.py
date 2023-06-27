@@ -58,6 +58,7 @@ class Plank(models.Model):
     width = models.DecimalField(max_digits=5, decimal_places=2)
     depth = models.DecimalField(max_digits=5, decimal_places=2)
     wood_grade = models.CharField(max_length=50)
+    live_edge = models.BooleanField(default=False)
 
 class MoistureCheck(models.Model):
     plank = models.ForeignKey(Plank, on_delete=models.CASCADE)
