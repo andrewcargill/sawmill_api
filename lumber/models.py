@@ -62,6 +62,7 @@ class Plank(models.Model):
     furniture = models.BooleanField(default=False)
     structural = models.BooleanField(default=False)
     general = models.BooleanField(default=False)
+    info = models.TextField(default='No extra information on this wood.')
 
 class MoistureCheck(models.Model):
     plank = models.ForeignKey(Plank, on_delete=models.CASCADE)
