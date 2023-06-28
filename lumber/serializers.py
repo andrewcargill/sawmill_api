@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck
+from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck, Post
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,4 +29,9 @@ class PlankSerializer(serializers.ModelSerializer):
 class MoistureCheckSerializer(serializers.ModelSerializer):
     class Meta:
         model = MoistureCheck
+        fields = '__all__'
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
         fields = '__all__'

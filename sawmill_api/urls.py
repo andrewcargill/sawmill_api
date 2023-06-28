@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList, HomeView, LogoutView, ImageUploadView, validate_tree_id, validate_log_id, validate_plank_id, upload_file
+from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList, HomeView, LogoutView, ImageUploadView, validate_tree_id, validate_log_id, validate_plank_id, upload_file, create_post, update_post, CloudPost
 from landing.views import landing_page
 from django.contrib.auth import views as auth_views
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -36,7 +36,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/lumber/', TestList.as_view(), name='lumber-api'),
     path('api/lumber/<int:pk>/', TestDetail.as_view(), name='lumber-detail-api'),
-
+    path('api/cloud-post/', CloudPost.as_view(), name='cloud-post'),
+    path('api/posts/', create_post, name='create_post'),
+    path('api/posts/<int:post_id>/', update_post, name='update_post'),
     path('api/upload/', upload_file, name='upload_file'),
     path('api/dropbox/', DropboxFileList.as_view(), name='dropbox-api'),
     path('api/dropbox/<int:pk>/', DropboxFileDetail.as_view(), name='dropbox-detail-api'),

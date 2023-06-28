@@ -4,6 +4,7 @@ charset-normalizer==3.1.0
 cloudinary==1.33.0
 dj-database-url==2.0.0
 Django==4.2.2
+django-cloudinary-storage==0.3.0
 django-cors-headers==4.1.0
 django-dropbox==0.0.2
 django-dropbox-storage==0.4.1
@@ -13,6 +14,7 @@ djangorestframework-simplejwt==5.2.2
 dropbox==11.36.2
 gunicorn==20.1.0
 idna==3.4
+Pillow==9.5.0
 ply==3.11
 psycopg2-binary==2.9.6
 PyJWT==2.7.0

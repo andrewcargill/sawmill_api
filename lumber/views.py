@@ -1,6 +1,6 @@
 from rest_framework import generics, filters
-from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck
-from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer
+from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck, Post
+from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer, PostSerializer
 from  rest_framework.views import APIView
 from rest_framework import filters
 from rest_framework import status
@@ -14,6 +14,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import FileUploadParser
 from django.http import JsonResponse
 from cloudinary.uploader import upload
+from django.http import JsonResponse
+from django.conf import settings
+from rest_framework.decorators import api_view
 
 """Test"""
 
@@ -59,11 +62,42 @@ class TestDetail(generics.RetrieveUpdateDestroyAPIView):
 def upload_file(request):
     if request.method == 'POST' and request.FILES.get('file'):
         file = request.FILES['file']
-        upload_result = upload(file)
+        cloudinary_url = getattr(settings, 'CLOUDINARY_URL', ''),
+    
+        upload_result = upload(file, **cloudinary_url)
         # Process the upload result and save the necessary information in your database
         # Return a JSON response with the uploaded file details or a success message
-        
+
+        return JsonResponse({'upload_result': upload_result})
+    
     return JsonResponse({'error': 'Invalid request'})
+
+"""Cloudinary v3"""
+class CloudPost(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+"""Cloudinary v2"""
+@api_view(['POST'])
+def create_post(request):
+    serializer = PostSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+@api_view(['PUT'])
+def update_post(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        return Response({'error': 'Post not found'}, status=404)
+
+    serializer = PostSerializer(post, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
 
 """Dropbox Test"""
 class DropboxFileList(generics.ListCreateAPIView):

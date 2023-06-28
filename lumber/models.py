@@ -17,6 +17,11 @@ class Test(models.Model):
     data3 = models.CharField(max_length=100)
     id = models.AutoField(primary_key=True)
 
+class Post(models.Model):
+    image = models.ImageField(
+        upload_to='images/', default='default_post_kg2mvg', blank=True
+    )
+
 class DropboxTest(models.Model):
     file = models.FileField()
 

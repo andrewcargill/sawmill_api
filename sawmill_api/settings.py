@@ -16,6 +16,18 @@ import os
 from dotenv import load_dotenv
 from datetime import timedelta
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dlwh3cb7k',
+    'API_KEY': '528263275618427',
+    'API_SECRET': 'A64B6pGF3nBSfGucKSyrUsDFquQ',
+}
+
+MEDIA_URL = '/media/'
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -53,7 +65,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'lumber',
     'corsheaders',
     'rest_framework',
@@ -62,7 +76,6 @@ INSTALLED_APPS = [
     # 'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'dropbox',
-
 ]
 
 MIDDLEWARE = [
@@ -135,7 +148,7 @@ CORS_ALLOWED_ORIGINS = [
 #     '/api-auth/logout/',
 # ]
 
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
 DROPBOX_OAUTH2_TOKEN = 'sl.BhD7wkIQaGIjX-xlu7dAgWN6pNOqLEkarXDQ_mTTtGmNFT8E-So5QYylZTcGxI5RZ3EYcgcy28pt1gP7MFStBSJ8Gooi0Pf_XMXIE-yUpxdCjzApmI7cHm3tF3-n1u8mPNFhM7g'
 
@@ -146,7 +159,6 @@ DROPBOX_APP_SECRET = 'gsdwawk3nq9nei0'
 DROPBOX_OAUTH2_REFRESH_TOKEN =''
 
 
-CLOUDINARY_URL= 'cloudinary://528263275618427:A64B6pGF3nBSfGucKSyrUsDFquQ@dlwh3cb7k'
 
 
 
