@@ -137,8 +137,6 @@ CORS_ALLOWED_ORIGINS = [
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
-STORAGES = {"default": {"BACKEND": "storages.backends.dropbox.DropboxStorage"}}
-
 DROPBOX_OAUTH2_TOKEN = 'sl.BhD7wkIQaGIjX-xlu7dAgWN6pNOqLEkarXDQ_mTTtGmNFT8E-So5QYylZTcGxI5RZ3EYcgcy28pt1gP7MFStBSJ8Gooi0Pf_XMXIE-yUpxdCjzApmI7cHm3tF3-n1u8mPNFhM7g'
 
 DROPBOX_APP_KEY = 'ihs0nlwl2m6g1hd'
@@ -146,6 +144,9 @@ DROPBOX_APP_KEY = 'ihs0nlwl2m6g1hd'
 DROPBOX_APP_SECRET = 'gsdwawk3nq9nei0'
 
 DROPBOX_OAUTH2_REFRESH_TOKEN =''
+
+
+CLOUDINARY_URL= 'cloudinary://528263275618427:A64B6pGF3nBSfGucKSyrUsDFquQ@dlwh3cb7k'
 
 
 

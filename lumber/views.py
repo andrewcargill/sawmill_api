@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.parsers import FileUploadParser
 from django.http import JsonResponse
+from cloudinary.uploader import upload
 
 """Test"""
 
@@ -53,6 +54,16 @@ class TestDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Test.objects.all()
     serializer_class = TestSerializer
+
+"""Cloudinary"""
+def upload_file(request):
+    if request.method == 'POST' and request.FILES.get('file'):
+        file = request.FILES['file']
+        upload_result = upload(file)
+        # Process the upload result and save the necessary information in your database
+        # Return a JSON response with the uploaded file details or a success message
+        
+    return JsonResponse({'error': 'Invalid request'})
 
 """Dropbox Test"""
 class DropboxFileList(generics.ListCreateAPIView):
