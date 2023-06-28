@@ -21,7 +21,7 @@ class HomeView(APIView):
    permission_classes = (IsAuthenticated, )
 
    def get(self, request):
-        content = {'message': '(V7) Welcome to the JWT Authentication page using React Js and Django!'}
+        content = {'message': '(V8) Welcome to the JWT Authentication page using React Js and Django!'}
         return Response(content)
    
 class LogoutView(APIView):
@@ -94,6 +94,11 @@ class TreeList(generics.ListCreateAPIView):
         if id_query:
             queryset = queryset.filter(id=id_query)
         return queryset
+    
+class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = Tree.objects.all()
+    serializer_class = TreeSerializer
 
 """ID Validation"""
 def validate_tree_id(request, tree_id):
@@ -125,10 +130,7 @@ validate_tree_id.permission_classes = [IsAuthenticated]
     
     
 
-class TreeDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset = Tree.objects.all()
-    serializer_class = TreeSerializer
+
 
 """Log Views"""
 class LogList(generics.ListCreateAPIView):

@@ -46,6 +46,10 @@ class Tree(models.Model):
     date = models.DateField()
     species = models.CharField(max_length=100)
     reason_for_felling = models.TextField()
+    age = models.CharField(max_length=100, blank=True, null=True)
+    longitude = models.DecimalField(max_digits=16, decimal_places=14, blank=True, null=True)
+    latitude = models.DecimalField(max_digits=16, decimal_places=14, blank=True, null=True)
+    lumberjack = models.CharField(max_length=50, blank=True, null=True)
 
 class Log(models.Model):
     tree = models.ForeignKey(Tree, on_delete=models.CASCADE)
