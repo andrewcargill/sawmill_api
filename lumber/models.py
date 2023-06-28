@@ -55,6 +55,8 @@ class Log(models.Model):
     tree = models.ForeignKey(Tree, on_delete=models.CASCADE)
     date = models.DateField()
     length = models.DecimalField(max_digits=5, decimal_places=2)
+    diameter = models.DecimalField(max_digits=5, decimal_places=2, default=2.22)
+    buck = models.BooleanField(default=False)
 
 class Plank(models.Model):
     date = models.DateField(blank=True, default=timezone.now)
@@ -67,6 +69,7 @@ class Plank(models.Model):
     structural = models.BooleanField(default=False)
     general = models.BooleanField(default=False)
     info = models.TextField(default='No extra information on this wood.')
+    operator = models.CharField(max_length=100, default='Andrew Cargill')
 
 class MoistureCheck(models.Model):
     plank = models.ForeignKey(Plank, on_delete=models.CASCADE)
