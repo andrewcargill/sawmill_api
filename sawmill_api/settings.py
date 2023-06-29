@@ -15,12 +15,19 @@ import dj_database_url
 import os 
 from dotenv import load_dotenv
 from datetime import timedelta
+import cloudinary
+import cloudinary_storage
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dlwh3cb7k',
-    'API_KEY': '528263275618427',
-    'API_SECRET': 'A64B6pGF3nBSfGucKSyrUsDFquQ',
+    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
+
+# CLOUDINARY_STORAGE = {
+    
+#     'CLOUD_NAME': 'dlwh3cb7k',
+#     'API_KEY': '528263275618427',
+#     'API_SECRET': 'A64B6pGF3nBSfGucKSyrUsDFquQ',
+# }
 
 MEDIA_URL = '/media/'
 
