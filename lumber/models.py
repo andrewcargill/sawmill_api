@@ -55,6 +55,7 @@ class Tree(models.Model):
     longitude = models.DecimalField(max_digits=16, decimal_places=14, blank=True, null=True)
     latitude = models.DecimalField(max_digits=16, decimal_places=14, blank=True, null=True)
     lumberjack = models.CharField(max_length=50, blank=True, null=True)
+    image = models.ImageField(upload_to='images/', blank=True)
 
 class Log(models.Model):
     tree = models.ForeignKey(Tree, on_delete=models.CASCADE)
@@ -75,6 +76,8 @@ class Plank(models.Model):
     general = models.BooleanField(default=False)
     info = models.TextField(default='No extra information on this wood.')
     operator = models.CharField(max_length=100, default='Andrew Cargill')
+    image1 = models.ImageField(upload_to='images/', blank=True)
+    image2 = models.ImageField(upload_to='images/', blank=True)
 
 class MoistureCheck(models.Model):
     plank = models.ForeignKey(Plank, on_delete=models.CASCADE)
