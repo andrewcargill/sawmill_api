@@ -130,8 +130,10 @@ class TreeList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['date', 'species', 'reason_for_felling', 'id']
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+
+    search_fields = ['date', 'species', 'reason_for_felling', 'id', 'lumberjack', 'age']
+    ordering_fields = ['date', 'species', 'age', 'id', 'lumberjack']
 
     def get_queryset(self):
         queryset = super().get_queryset()
