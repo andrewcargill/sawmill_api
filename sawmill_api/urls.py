@@ -43,15 +43,20 @@ urlpatterns = [
     path('api/dropbox/', DropboxFileList.as_view(), name='dropbox-api'),
     path('api/dropbox/<int:pk>/', DropboxFileDetail.as_view(), name='dropbox-detail-api'),
     path('api/upload-image/', ImageUploadView.as_view(), name='image-upload'),
+    
     path('api/tree/', TreeList.as_view(), name='tree'),
     path('api/tree/<int:pk>/', TreeDetail.as_view(), name='tree-detail-api'),
     path('api/tree/validate/<int:tree_id>/', validate_tree_id, name='validate_tree_id'),
-    path('api/log/validate/<int:log_id>/', validate_log_id, name='validate_log_id'),
-    path('api/plank/validate/<int:plank_id>/', validate_plank_id, name='validate_plank_id'),
+ 
+  
     path('api/log/', LogList.as_view(), name='log'),
     path('api/log/<int:pk>/', LogDetail.as_view(), name='log-detail-api'),
+    path('api/log/validate/<int:log_id>/', validate_log_id, name='validate_log_id'),
+    
     path('api/plank/', PlankList.as_view(), name='plank'),
     path('api/plank/<int:pk>/', PlankDetail.as_view(), name='plank-detail-api'),
+    path('api/plank/validate/<int:plank_id>/', validate_plank_id, name='validate_plank_id'),
+    
     path('api/water/', MoistureCheckList.as_view(), name='water'),
     path('api/water/<int:pk>/', MoistureDetail.as_view(), name='water-detail-api'),
     path('api/logs/by_tree/', LogsByTreeList.as_view(), name='logs-by-tree'),

@@ -17,6 +17,7 @@ from cloudinary.uploader import upload
 from django.http import JsonResponse
 from django.conf import settings
 from rest_framework.decorators import api_view
+from rest_framework.pagination import PageNumberPagination
 
 """Test"""
 
@@ -126,11 +127,17 @@ class ImageUploadView(APIView):
         return Response(serializer.errors, status=400)
 
 """Tree Views"""
+class TreeListPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
 class TreeList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Tree.objects.all()
     serializer_class = TreeSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    pagination_class = TreeListPagination
 
     search_fields = ['date', 'species', 'reason_for_felling', 'id', 'lumberjack', 'age']
     ordering_fields = ['date', 'species', 'age', 'id', 'lumberjack']
@@ -180,12 +187,21 @@ validate_tree_id.permission_classes = [IsAuthenticated]
 
 
 """Log Views"""
+class LogListPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
 class LogList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Log.objects.all()
     serializer_class = LogSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['date', 'length', 'id']
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    pagination_class = LogListPagination
+    search_fields = ['date', 'length', 'id', 'diameter', 'buck']
+    ordering_fields = ['date', 'length', 'id', 'diameter', 'buck']
+
+    pagination_class = LogListPagination
 
     def get_queryset(self):
         queryset = super().get_queryset()
