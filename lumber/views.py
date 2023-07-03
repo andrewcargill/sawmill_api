@@ -1,6 +1,7 @@
 from rest_framework import generics, filters
 from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck, Post
 from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer, PostSerializer
+from .pagination import CustomPagination
 from  rest_framework.views import APIView
 from rest_framework import filters
 from rest_framework import status
@@ -200,7 +201,6 @@ class LogList(generics.ListCreateAPIView):
     pagination_class = LogListPagination
     search_fields = ['date', 'length', 'id', 'diameter', 'buck']
     ordering_fields = ['date', 'length', 'id', 'diameter', 'buck']
-
     pagination_class = LogListPagination
 
     def get_queryset(self):
@@ -229,7 +229,7 @@ class PlankList(generics.ListCreateAPIView):
     search_fields = ['width', 'depth', 'wood_grade', 'id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
 
-    pagination_class = LogListPagination
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -237,6 +237,8 @@ class PlankList(generics.ListCreateAPIView):
         if id_query:
             queryset = queryset.filter(id=id_query)
         return queryset
+    
+
 
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
