@@ -242,7 +242,8 @@ class PlankList(generics.ListCreateAPIView):
 
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset = Plank.objects.all()
+    # queryset = Plank.objects.all()
+    queryset = Plank.objects.select_related('log__tree')
     serializer_class = PlankSerializer
 
 """Moisture Views"""
@@ -290,7 +291,7 @@ class MoistureChecksByPlankList(generics.ListAPIView):
 
     def get_queryset(self):
         plank_id = self.request.query_params.get('plank_id')
-        queryset = MoistureCheck.objects.filter(plank=plank_id) 
+        queryset = MoistureCheck.objects.filter(plank=plank_id).order_by('-date')
         return queryset
 
 
