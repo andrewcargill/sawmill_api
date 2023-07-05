@@ -216,7 +216,7 @@ class LogDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = LogSerializer
 
 """Plank Views"""
-class LogListPagination(PageNumberPagination):
+class PlankListPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
@@ -229,7 +229,7 @@ class PlankList(generics.ListCreateAPIView):
     search_fields = ['width', 'depth', 'wood_grade', 'id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
 
-    pagination_class = CustomPagination
+    pagination_class = PlankListPagination
 
     def get_queryset(self):
         queryset = super().get_queryset()
