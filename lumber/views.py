@@ -7,7 +7,7 @@ from rest_framework import filters
 from rest_framework import status
 from django.http import Http404
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -238,13 +238,20 @@ class PlankList(generics.ListCreateAPIView):
             queryset = queryset.filter(id=id_query)
         return queryset
     
-
-
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
     # queryset = Plank.objects.all()
     queryset = Plank.objects.select_related('log__tree')
     serializer_class = PlankSerializer
+
+"""Plank Report"""
+class PlankReport(generics.RetrieveAPIView):
+    queryset = Plank.objects.select_related('log__tree')
+    serializer_class = PlankSerializer
+    permission_classes = [AllowAny]
+
+    def get_allowed_methods(self):
+        return ['GET']
 
 """Moisture Views"""
 class MoistureCheckList(generics.ListCreateAPIView):
@@ -293,6 +300,8 @@ class MoistureChecksByPlankList(generics.ListAPIView):
         plank_id = self.request.query_params.get('plank_id')
         queryset = MoistureCheck.objects.filter(plank=plank_id).order_by('-date')
         return queryset
+    
+
 
 
 

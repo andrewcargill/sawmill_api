@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList, HomeView, LogoutView, ImageUploadView, validate_tree_id, validate_log_id, validate_plank_id, upload_file, create_post, update_post, CloudPost
+from lumber.views import TestList, TestDetail, DropboxFileList, DropboxFileDetail, TreeList, TreeDetail, LogList, LogDetail, PlankList, PlankDetail, MoistureCheckList, MoistureDetail, LogsByTreeList, PlanksByLogList, MoistureChecksByPlankList, HomeView, LogoutView, ImageUploadView, validate_tree_id, validate_log_id, validate_plank_id, upload_file, create_post, update_post, CloudPost, PlankReport
 from landing.views import landing_page
 from django.contrib.auth import views as auth_views
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -55,6 +55,7 @@ urlpatterns = [
     
     path('api/plank/', PlankList.as_view(), name='plank'),
     path('api/plank/<int:pk>/', PlankDetail.as_view(), name='plank-detail-api'),
+    path('api/plank/report/<int:pk>/', PlankReport.as_view(), name='plank-report-api'),
     path('api/plank/validate/<int:plank_id>/', validate_plank_id, name='validate_plank_id'),
     
     path('api/water/', MoistureCheckList.as_view(), name='water'),
