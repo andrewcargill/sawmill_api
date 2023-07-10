@@ -19,6 +19,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
+from decimal import Decimal
 
 """Test"""
 
@@ -263,7 +264,34 @@ class PlankList(generics.ListCreateAPIView):
         id_query = self.request.query_params.get('id')
         if id_query:
             queryset = queryset.filter(id=id_query)
+
+        width_min = self.request.query_params.get('width_min')
+        width_max = self.request.query_params.get('width_max')
+        if width_min and width_max:
+            queryset = queryset.filter(width__gte=Decimal(width_min), width__lte=Decimal(width_max))
+        elif width_min:
+            queryset = queryset.filter(width__gte=Decimal(width_min))
+        elif width_max:
+            queryset = queryset.filter(width__lte=Decimal(width_max))
+
+        depth_min = self.request.query_params.get('depth_min')
+        depth_max = self.request.query_params.get('depth_max')
+        if depth_min and depth_max:
+            queryset = queryset.filter(depth__gte=Decimal(depth_min), depth__lte=Decimal(depth_max))
+        elif depth_min:
+            queryset = queryset.filter(depth__gte=Decimal(depth_min))
+        elif depth_max:
+            queryset = queryset.filter(depth__lte=Decimal(depth_max))
+
+    
+        grade_filter = self.request.query_params.get('wood_grade')  # Get the grade filter value
+        if grade_filter:
+            queryset = queryset.filter(wood_grade__icontains=grade_filter)
+        
         return queryset
+
+
+
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
