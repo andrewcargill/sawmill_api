@@ -1,6 +1,6 @@
 from rest_framework import generics, filters
 from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck, Post
-from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankSerializer, MoistureCheckSerializer, PostSerializer
+from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankCreateSerializer, PlankDetailSerializer, MoistureCheckSerializer, PostSerializer
 from .pagination import CustomPagination
 from  rest_framework.views import APIView
 from rest_framework import filters
@@ -221,33 +221,64 @@ class PlankListPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
+# class PlankList(generics.ListCreateAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = Plank.objects.all()
+#     serializer_class = PlankDetailSerializer
+#     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+#     search_fields = ['width', 'depth', 'wood_grade', 'id']
+#     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
+
+#     pagination_class = PlankListPagination
+
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         id_query = self.request.query_params.get('id')
+#         if id_query:
+#             queryset = queryset.filter(id=id_query)
+#         return queryset
+    
+# class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     # queryset = Plank.objects.all()
+#     queryset = Plank.objects.select_related('log__tree')
+#     serializer_class = PlankDetailSerializer
+
 class PlankList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset = Plank.objects.all()
-    serializer_class = PlankSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['width', 'depth', 'wood_grade', 'id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
-
     pagination_class = PlankListPagination
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = Plank.objects.all()
         id_query = self.request.query_params.get('id')
         if id_query:
             queryset = queryset.filter(id=id_query)
         return queryset
-    
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return PlankDetailSerializer
+        return PlankCreateSerializer
+
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
-    # queryset = Plank.objects.all()
     queryset = Plank.objects.select_related('log__tree')
-    serializer_class = PlankSerializer
+    serializer_class = PlankDetailSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            return PlankCreateSerializer
+        return self.serializer_class
+
+
 
 """Plank Report"""
 class PlankReport(generics.RetrieveAPIView):
     queryset = Plank.objects.select_related('log__tree')
-    serializer_class = PlankSerializer
+    serializer_class = PlankDetailSerializer
     permission_classes = [AllowAny]
 
     def get_allowed_methods(self):
@@ -285,7 +316,7 @@ class LogsByTreeList(generics.ListAPIView):
 
 class PlanksByLogList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = PlankSerializer  
+    serializer_class = PlankCreateSerializer  
 
     def get_queryset(self):
         log_id = self.request.query_params.get('log_id')

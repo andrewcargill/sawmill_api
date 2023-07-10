@@ -38,13 +38,29 @@ class LogSerializer(serializers.ModelSerializer):
         model = Log
         fields = ('id', 'length', 'tree', 'date', 'diameter', 'buck')
 
-class PlankSerializer(serializers.ModelSerializer):
+# class PlankSerializer(serializers.ModelSerializer):
+#     log = LogSerializer()
+
+#     class Meta:
+#         model = Plank
+#         fields = ('id', 'log', 'date', 'width', 'depth', 'wood_grade', 'live_edge', 'furniture', 'structural', 'general', 'info', 'operator', 'image1', 'image2')
+#         read_only_fields = ['log']
+
+class PlankCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plank
+        fields = ('id', 'log', 'date', 'width', 'depth', 'wood_grade', 'live_edge', 'furniture', 'structural', 'general', 'info', 'operator', 'image1', 'image2')
+
+class PlankDetailSerializer(serializers.ModelSerializer):
     log = LogSerializer()
 
     class Meta:
         model = Plank
         fields = ('id', 'log', 'date', 'width', 'depth', 'wood_grade', 'live_edge', 'furniture', 'structural', 'general', 'info', 'operator', 'image1', 'image2')
-        read_only_fields = ['log']
+
+
+
+
 
 
 class MoistureCheckSerializer(serializers.ModelSerializer):
