@@ -44,6 +44,7 @@ class PlankSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plank
         fields = ('id', 'log', 'date', 'width', 'depth', 'wood_grade', 'live_edge', 'furniture', 'structural', 'general', 'info', 'operator', 'image1', 'image2')
+        read_only_fields = ['log']
 
 
 class MoistureCheckSerializer(serializers.ModelSerializer):
