@@ -1,6 +1,6 @@
 from rest_framework import generics, filters
 from .models import Test, DropboxTest, Tree, Log, Plank, MoistureCheck, Post
-from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogSerializer, PlankCreateSerializer, PlankDetailSerializer, MoistureCheckSerializer, PostSerializer
+from .serializers import TestSerializer, DropBoxFileSerializer, TreeSerializer, LogCreateSerializer, LogDetailSerializer, PlankCreateSerializer, PlankDetailSerializer, MoistureCheckSerializer, PostSerializer
 from .pagination import CustomPagination
 from  rest_framework.views import APIView
 from rest_framework import filters
@@ -193,43 +193,15 @@ class LogListPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
-class LogList(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset = Log.objects.all()
-    serializer_class = LogSerializer
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    pagination_class = LogListPagination
-    search_fields = ['date', 'length', 'id', 'diameter', 'buck']
-    ordering_fields = ['date', 'length', 'id', 'diameter', 'buck']
-    pagination_class = LogListPagination
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        id_query = self.request.query_params.get('id')
-        if id_query:
-            queryset = queryset.filter(id=id_query)
-        return queryset
-    
-class LogDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset = Log.objects.all()
-    serializer_class = LogSerializer
-
-"""Plank Views"""
-class PlankListPagination(PageNumberPagination):
-    page_size = 10
-    page_size_query_param = 'page_size'
-    max_page_size = 100
-
-# class PlankList(generics.ListCreateAPIView):
+# class LogList(generics.ListCreateAPIView):
 #     permission_classes = (IsAuthenticated,)
-#     queryset = Plank.objects.all()
-#     serializer_class = PlankDetailSerializer
+#     queryset = Log.objects.all()
+#     serializer_class = LogSerializer
 #     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-#     search_fields = ['width', 'depth', 'wood_grade', 'id']
-#     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
-
-#     pagination_class = PlankListPagination
+#     pagination_class = LogListPagination
+#     search_fields = ['date', 'length', 'id', 'diameter', 'buck']
+#     ordering_fields = ['date', 'length', 'id', 'diameter', 'buck']
+#     pagination_class = LogListPagination
 
 #     def get_queryset(self):
 #         queryset = super().get_queryset()
@@ -238,11 +210,46 @@ class PlankListPagination(PageNumberPagination):
 #             queryset = queryset.filter(id=id_query)
 #         return queryset
     
-# class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
+# class LogDetail(generics.RetrieveUpdateDestroyAPIView):
 #     permission_classes = (IsAuthenticated,)
-#     # queryset = Plank.objects.all()
-#     queryset = Plank.objects.select_related('log__tree')
-#     serializer_class = PlankDetailSerializer
+#     queryset = Log.objects.all()
+#     serializer_class = LogSerializer
+
+class LogList(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    pagination_class = LogListPagination
+    search_fields = ['date', 'length', 'id', 'diameter', 'buck']
+    ordering_fields = ['date', 'length', 'id', 'diameter', 'buck']
+    pagination_class = LogListPagination
+
+    def get_queryset(self):
+        queryset = Log.objects.all()
+        id_query = self.request.query_params.get('id')
+        if id_query:
+            queryset = queryset.filter(id=id_query)
+        return queryset
+    
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return LogDetailSerializer
+        return LogCreateSerializer
+    
+class LogDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = Log.objects.select_related('tree')
+    serializer_class = LogDetailSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'PUT':
+            return LogCreateSerializer
+        return self.serializer_class
+
+"""Plank Views"""
+class PlankListPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
 
 class PlankList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -307,7 +314,7 @@ class MoistureDetail(generics.RetrieveUpdateDestroyAPIView):
 """Additional Views"""
 class LogsByTreeList(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = LogSerializer  # Replace with your Log serializer
+    serializer_class = LogCreateSerializer  # Replace with your Log serializer
 
     def get_queryset(self):
         tree_id = self.request.query_params.get('tree_id')

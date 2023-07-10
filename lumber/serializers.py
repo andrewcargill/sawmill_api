@@ -31,20 +31,26 @@ class TreeSerializer(serializers.ModelSerializer):
         model = Tree
         fields = ('id', 'species', 'date', 'reason_for_felling', 'age', 'longitude', 'latitude', 'lumberjack', 'image')
 
-class LogSerializer(serializers.ModelSerializer):
-    tree = TreeSerializer(read_only=True)
+
+# class LogSerializer(serializers.ModelSerializer):
+#     tree = TreeSerializer(read_only=True)
+
+#     class Meta:
+#         model = Log
+#         fields = ('id', 'length', 'tree', 'date', 'diameter', 'buck')
+
+class LogCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Log
         fields = ('id', 'length', 'tree', 'date', 'diameter', 'buck')
 
-# class PlankSerializer(serializers.ModelSerializer):
-#     log = LogSerializer()
+class LogDetailSerializer(serializers.ModelSerializer):
+    tree = TreeSerializer()
 
-#     class Meta:
-#         model = Plank
-#         fields = ('id', 'log', 'date', 'width', 'depth', 'wood_grade', 'live_edge', 'furniture', 'structural', 'general', 'info', 'operator', 'image1', 'image2')
-#         read_only_fields = ['log']
+    class Meta:
+        model = Log
+        fields = ('id', 'length', 'tree', 'date', 'diameter', 'buck')
 
 class PlankCreateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -52,7 +58,7 @@ class PlankCreateSerializer(serializers.ModelSerializer):
         fields = ('id', 'log', 'date', 'width', 'depth', 'wood_grade', 'live_edge', 'furniture', 'structural', 'general', 'info', 'operator', 'image1', 'image2')
 
 class PlankDetailSerializer(serializers.ModelSerializer):
-    log = LogSerializer()
+    log = LogDetailSerializer()
 
     class Meta:
         model = Plank
