@@ -20,6 +20,8 @@ from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from decimal import Decimal
+from django.db.models import Q
+
 
 """Test"""
 
@@ -303,6 +305,14 @@ class PlankList(generics.ListCreateAPIView):
         structural = self.request.query_params.get('structural')
         if structural:
             queryset = queryset.filter(structural=structural)
+
+        info_query = self.request.query_params.get('info')
+        if info_query:
+            queryset = queryset.filter(info__icontains=info_query)
+
+        log_id = self.request.query_params.get('log_id')
+        if log_id:
+            queryset = queryset.filter(log__id=log_id)
 
         return queryset
 
