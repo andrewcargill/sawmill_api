@@ -193,10 +193,10 @@ CORS_ALLOW_CREDENTIALS = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ddsmn1ltpruvq3',
-        'USER': 'epilubgvgbdafn',
-        'PASSWORD': 'cc9b3645159e42b496b7f019649c2c4b6317333ce9017c53f944c5c4d988902b',
-        'HOST': 'ec2-52-205-45-222.compute-1.amazonaws.com',
+        'NAME': 'dec5tkpflt1vev',
+        'USER': 'lmwznkzepfzmaw',
+        'PASSWORD': '6691be9398dc5a571d9fb91a4c42a0ab76e9c79618553cf15b7613a3147f25b3',
+        'HOST': 'ec2-54-89-111-237.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }

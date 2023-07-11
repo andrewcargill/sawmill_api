@@ -288,6 +288,22 @@ class PlankList(generics.ListCreateAPIView):
         if grade_filter:
             queryset = queryset.filter(wood_grade__icontains=grade_filter)
         
+        general = self.request.query_params.get('general')
+        if general:
+            queryset = queryset.filter(general=general)
+
+        furniture = self.request.query_params.get('furniture')
+        if furniture:
+            queryset = queryset.filter(furniture=furniture)
+
+        live_edge = self.request.query_params.get('live_edge')
+        if live_edge:
+            queryset = queryset.filter(live_edge=live_edge)
+
+        structural = self.request.query_params.get('structural')
+        if structural:
+            queryset = queryset.filter(structural=structural)
+
         return queryset
 
 
