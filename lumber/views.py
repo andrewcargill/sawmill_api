@@ -23,6 +23,7 @@ from decimal import Decimal
 from django.db.models import Q
 
 
+
 """Test"""
 
 
@@ -196,27 +197,6 @@ class LogListPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
-# class LogList(generics.ListCreateAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = Log.objects.all()
-#     serializer_class = LogSerializer
-#     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-#     pagination_class = LogListPagination
-#     search_fields = ['date', 'length', 'id', 'diameter', 'buck']
-#     ordering_fields = ['date', 'length', 'id', 'diameter', 'buck']
-#     pagination_class = LogListPagination
-
-#     def get_queryset(self):
-#         queryset = super().get_queryset()
-#         id_query = self.request.query_params.get('id')
-#         if id_query:
-#             queryset = queryset.filter(id=id_query)
-#         return queryset
-    
-# class LogDetail(generics.RetrieveUpdateDestroyAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = Log.objects.all()
-#     serializer_class = LogSerializer
 
 class LogList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
@@ -291,8 +271,12 @@ class PlankList(generics.ListCreateAPIView):
             queryset = queryset.filter(wood_grade__icontains=grade_filter)
         
         general = self.request.query_params.get('general')
-        if general:
-            queryset = queryset.filter(general=general)
+        if general == 'true':
+            queryset = queryset.filter(general=True)
+        elif general == 'false':
+            queryset = queryset.filter(general=False)
+        else:
+            queryset = queryset.filter(Q(general=True) | Q(general=False))
 
         furniture = self.request.query_params.get('furniture')
         if furniture:
