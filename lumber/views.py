@@ -247,7 +247,7 @@ class PlankListPagination(PageNumberPagination):
 class PlankList(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['width', 'depth', 'wood_grade', 'id']
+    search_fields = ['width', 'depth', 'wood_grade', 'log__tree__species','id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
     pagination_class = PlankListPagination
 
@@ -307,6 +307,11 @@ class PlankList(generics.ListCreateAPIView):
         log_id = self.request.query_params.get('log_id')
         if log_id:
             queryset = queryset.filter(log__id=log_id)
+        
+        species_query = self.request.query_params.get('species')
+        if species_query:
+            queryset = queryset.filter(log__tree__species__icontains=species_query)
+
 
         return queryset
 
