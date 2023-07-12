@@ -23,6 +23,16 @@ from decimal import Decimal
 from django.db.models import Q
 
 
+"""Boolean Filter"""
+def apply_boolean_filter(queryset, field_name, value):
+    if value == 'true':
+        return queryset.filter(**{field_name: True})
+    elif value == 'false':
+        return queryset.filter(**{field_name: False})
+    else:
+        return queryset.filter(Q(**{field_name: True}) | Q(**{field_name: False}))
+
+
 
 """Test"""
 
@@ -270,25 +280,25 @@ class PlankList(generics.ListCreateAPIView):
         if grade_filter:
             queryset = queryset.filter(wood_grade__icontains=grade_filter)
         
+        # general = self.request.query_params.get('general')
+        # if general == 'true':
+        #     queryset = queryset.filter(general=True)
+        # elif general == 'false':
+        #     queryset = queryset.filter(general=False)
+        # else:
+        #     queryset = queryset.filter(Q(general=True) | Q(general=False))
+
         general = self.request.query_params.get('general')
-        if general == 'true':
-            queryset = queryset.filter(general=True)
-        elif general == 'false':
-            queryset = queryset.filter(general=False)
-        else:
-            queryset = queryset.filter(Q(general=True) | Q(general=False))
+        queryset = apply_boolean_filter(queryset, 'general', general)
 
         furniture = self.request.query_params.get('furniture')
-        if furniture:
-            queryset = queryset.filter(furniture=furniture)
+        queryset = apply_boolean_filter(queryset, 'furniture', furniture)
 
         live_edge = self.request.query_params.get('live_edge')
-        if live_edge:
-            queryset = queryset.filter(live_edge=live_edge)
+        queryset = apply_boolean_filter(queryset, 'live_edge', live_edge)
 
         structural = self.request.query_params.get('structural')
-        if structural:
-            queryset = queryset.filter(structural=structural)
+        queryset = apply_boolean_filter(queryset, 'structural', structural)
 
         info_query = self.request.query_params.get('info')
         if info_query:
