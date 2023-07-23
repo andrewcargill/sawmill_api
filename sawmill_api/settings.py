@@ -146,17 +146,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://andrewcargill.github.io',
 ]
 
-# REMOVED
-# CORS_ALLOWED_URLS = [
-#     'http://localhost:3000/api-auth/logout/',
-#     'https://andrewcargill.github.io/api-auth/logout/',
-# ]
 
-# CSRF_EXEMPT_PATHS = [
-#     '/api-auth/logout/',
-# ]
-
-# DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
 DROPBOX_OAUTH2_TOKEN = 'sl.BhD7wkIQaGIjX-xlu7dAgWN6pNOqLEkarXDQ_mTTtGmNFT8E-So5QYylZTcGxI5RZ3EYcgcy28pt1gP7MFStBSJ8Gooi0Pf_XMXIE-yUpxdCjzApmI7cHm3tF3-n1u8mPNFhM7g'
 
