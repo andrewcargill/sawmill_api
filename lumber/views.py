@@ -246,6 +246,7 @@ class PlankListPagination(PageNumberPagination):
 
 class PlankList(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated,)
+    permission_classes = [AllowAny]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['width', 'depth', 'wood_grade', 'log__tree__species','id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
@@ -325,6 +326,7 @@ class PlankList(generics.ListCreateAPIView):
 
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = (IsAuthenticated,)
+    permission_classes = [AllowAny]
     queryset = Plank.objects.select_related('log__tree')
     serializer_class = PlankDetailSerializer
 
