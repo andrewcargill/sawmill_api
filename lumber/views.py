@@ -324,7 +324,7 @@ class PlankList(generics.ListCreateAPIView):
         return PlankCreateSerializer
 
 class PlankDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     queryset = Plank.objects.select_related('log__tree')
     serializer_class = PlankDetailSerializer
 
