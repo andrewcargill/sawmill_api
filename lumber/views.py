@@ -245,7 +245,7 @@ class PlankListPagination(PageNumberPagination):
     max_page_size = 200
 
 class PlankList(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['width', 'depth', 'wood_grade', 'log__tree__species','id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
