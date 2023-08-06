@@ -21,6 +21,8 @@ from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
 from decimal import Decimal
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 """Boolean Filter"""
@@ -246,12 +248,13 @@ class PlankListPagination(PageNumberPagination):
 
 class PlankList(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated,)
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['width', 'depth', 'wood_grade', 'log__tree__species','id']
     ordering_fields = ['date', 'width', 'id', 'live_edge', 'depth']
     pagination_class = PlankListPagination
 
+    @csrf_exempt
     def get_queryset(self):
         queryset = Plank.objects.all()
         id_query = self.request.query_params.get('id')
@@ -315,9 +318,6 @@ class PlankList(generics.ListCreateAPIView):
 
 
         return queryset
-
-
-
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
